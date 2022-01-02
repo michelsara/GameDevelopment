@@ -6679,7 +6679,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1178013618}
-  - component: {fileID: 1178013617}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -6687,19 +6686,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1178013617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178013616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e31d92b4a8464ba3a4cb004eb8404df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settingsPopup: {fileID: 0}
 --- !u!4 &1178013618
 Transform:
   m_ObjectHideFlags: 0
@@ -10382,7 +10368,6 @@ GameObject:
   - component: {fileID: 1880154841}
   - component: {fileID: 1880154844}
   - component: {fileID: 1880154843}
-  - component: {fileID: 1880154842}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -10409,18 +10394,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0024719238, y: 0.0013580322}
   m_SizeDelta: {x: -93, y: -52}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1880154842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880154840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faaf6f4c28d754257aff532532dbf925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1880154843
 MonoBehaviour:
   m_ObjectHideFlags: 0
