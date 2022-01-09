@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainHallPuzzleRune : Interactable
 {
-	[SerializeField] private bool enabled = false;
+	[SerializeField] private bool _enabled = false;
 	[SerializeField] private Material enabledMaterial;
 	[SerializeField] private Material disabledMaterial;
 	[SerializeField] private GameObject[] neighboors = new GameObject[2];
@@ -19,17 +19,17 @@ public class MainHallPuzzleRune : Interactable
 	}
 
 	void Start() {
-		_light.SetActive(enabled);
+		_light.SetActive(_enabled);
 	}
 
 	private void interact(bool interactNeighboors) {
 
-		enabled = !enabled;
+		_enabled = !_enabled;
 
-		Material usedMaterial = new Material(enabled ? enabledMaterial : disabledMaterial);
+		Material usedMaterial = new Material(_enabled ? enabledMaterial : disabledMaterial);
 		usedMaterial.SetTexture("_MainTex", _texture);
 		_renderer.material = usedMaterial;
-		_light.SetActive(enabled);
+		_light.SetActive(_enabled);
 
 		if(interactNeighboors) {
 			foreach (GameObject neighboor in neighboors)
@@ -44,7 +44,11 @@ public class MainHallPuzzleRune : Interactable
 		interact(true);
 	}
 
+	public override void tooltip(Tootltip tooltip) {
+		tooltip.ShowTooltip("Touch");
+	}
+
 	public bool isEnabled() {
-		return enabled;
+		return _enabled;
 	}
 }
