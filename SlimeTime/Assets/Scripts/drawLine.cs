@@ -45,7 +45,7 @@ public class drawLine : MonoBehaviour {
         Debug.Log("Collider " + nameCollider);
         destroyNotCompleted();
 
-        if(startColliders.Contains(nameCollider)) colliderHit = true; else colliderHit = false;
+        if(startColliders.Contains(nameCollider) || nameCollider.Contains("Step")) colliderHit = true; else colliderHit = false;
         setColor();
         setGoalToReach();
         newPos = oldPos = collider.transform.position;
@@ -92,6 +92,7 @@ public class drawLine : MonoBehaviour {
     */
     void setReachedGoal() {
         if (nameCollider == goal) {
+            Debug.Log("goal reached");
             colliderHit = false;
             newPos = playerGame.transform.position;
 
@@ -158,6 +159,7 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void SpawnStep() {
+        Debug.Log("spawn");
         if(color == Color.yellow) parent = parentYellow;
         else if(color == Color.cyan) parent = parentCyan;
         else if(color == Color.green) parent = parentGreen;
