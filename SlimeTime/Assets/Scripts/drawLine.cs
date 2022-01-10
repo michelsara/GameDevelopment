@@ -28,6 +28,8 @@ public class drawLine : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        animator.ResetTrigger("Open");
+        animator.ResetTrigger("Close");
         goal = "goal";
         nameCollider = "start";
         startColliders = new List<string>{"YellowStart", "BlueStart", "MagentaStart", "GreenStart", "RedStart", "CyanStart"};
@@ -58,9 +60,8 @@ public class drawLine : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {   
-        if(completedLines.Count == 1) {
-            Debug.Log(animator.parameters[0]); 
-            animator.SetTrigger("Open");}
+        Debug.Log(completedLines.Count);
+        if(completedLines.Count == 1) {animator.SetTrigger("Open"); animator.SetTrigger("Close");}
 
         if(Input.GetKeyDown(KeyCode.Backspace)) resetUncompleted();
 
