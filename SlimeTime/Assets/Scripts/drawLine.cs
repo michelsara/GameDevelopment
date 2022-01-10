@@ -28,7 +28,6 @@ public class drawLine : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        animator = gameObject.GetComponent<Animator>();
         goal = "goal";
         nameCollider = "start";
         startColliders = new List<string>{"YellowStart", "BlueStart", "MagentaStart", "GreenStart", "RedStart", "CyanStart"};
@@ -44,22 +43,24 @@ public class drawLine : MonoBehaviour {
     void OnTriggerEnter(Collider collider) {
         //Output the Collider's GameObject's name
         nameCollider = collider.name;
-        Debug.Log("Collider " + nameCollider);
+        // Debug.Log("Collider " + nameCollider);
         destroyNotCompleted();
 
         if(startColliders.Contains(nameCollider) || nameCollider.Contains("Step")) colliderHit = true; else colliderHit = false;
         setColor();
         setGoalToReach();
         newPos = oldPos = collider.transform.position;
-        Debug.Log("hit " + colliderHit);
-        Debug.Log("start " + nameCollider);
-        Debug.Log("goal " + goal);
+        // Debug.Log("hit " + colliderHit);
+        // Debug.Log("start " + nameCollider);
+        // Debug.Log("goal " + goal);
         setReachedGoal();
     }
 
     // Update is called once per frame
     void Update() {   
-        if(completedLines.Count == 1) animator.SetTrigger("Open");
+        if(completedLines.Count == 1) {
+            Debug.Log(animator.parameters[0]); 
+            animator.SetTrigger("Open");}
 
         if(Input.GetKeyDown(KeyCode.Backspace)) resetUncompleted();
 
@@ -114,7 +115,7 @@ public class drawLine : MonoBehaviour {
             else if(nameCollider == "GreenGoal") completedLines.Add(parentGreen);
             else if(nameCollider == "CyanGoal") completedLines.Add(parentCyan);
         } else {
-            Debug.Log("destroy");
+            // Debug.Log("destroy");
             destroyNotCompleted();
         }
     }
@@ -163,7 +164,7 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void SpawnStep() {
-        Debug.Log("spawn");
+        // Debug.Log("spawn");
         if(color == Color.yellow) parent = parentYellow;
         else if(color == Color.cyan) parent = parentCyan;
         else if(color == Color.green) parent = parentGreen;
