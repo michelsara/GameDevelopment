@@ -29,7 +29,6 @@ public class drawLine : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         animator.ResetTrigger("Open");
-        animator.ResetTrigger("Close");
         goal = "goal";
         nameCollider = "start";
         startColliders = new List<string>{"YellowStart", "BlueStart", "MagentaStart", "GreenStart", "RedStart", "CyanStart"};
@@ -61,7 +60,7 @@ public class drawLine : MonoBehaviour {
     // Update is called once per frame
     void Update() {   
         Debug.Log(completedLines.Count);
-        if(completedLines.Count == 1) {animator.SetTrigger("Open"); animator.SetTrigger("Close");}
+        if(completedLines.Count == 6) animator.SetTrigger("Open");
 
         if(Input.GetKeyDown(KeyCode.Backspace)) resetUncompleted();
 
@@ -109,12 +108,12 @@ public class drawLine : MonoBehaviour {
 
             if(positions != null) positions.Clear();
 
-            if(nameCollider == "YellowGoal") completedLines.Add(parentYellow); 
-            else if(nameCollider == "BlueGoal") completedLines.Add(parentBlue);
-            else if(nameCollider == "MagentaGoal") completedLines.Add(parentMagenta);
-            else if(nameCollider == "RedGoal") completedLines.Add(parentRed);
-            else if(nameCollider == "GreenGoal") completedLines.Add(parentGreen);
-            else if(nameCollider == "CyanGoal") completedLines.Add(parentCyan);
+            if(nameCollider == "YellowGoal" && !completedLines.Contains(parentYellow)) completedLines.Add(parentYellow); 
+            else if(nameCollider == "BlueGoal" && !completedLines.Contains(parentBlue)) completedLines.Add(parentBlue);
+            else if(nameCollider == "MagentaGoal" && !completedLines.Contains(parentMagenta)) completedLines.Add(parentMagenta);
+            else if(nameCollider == "RedGoal" && !completedLines.Contains(parentRed)) completedLines.Add(parentRed);
+            else if(nameCollider == "GreenGoal" && !completedLines.Contains(parentGreen)) completedLines.Add(parentGreen);
+            else if(nameCollider == "CyanGoal" && !completedLines.Contains(parentCyan)) completedLines.Add(parentCyan);
         } else {
             // Debug.Log("destroy");
             destroyNotCompleted();
