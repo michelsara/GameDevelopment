@@ -12,6 +12,7 @@ public class drawLine : MonoBehaviour {
     [SerializeField] private Transform parentMagenta;
     [SerializeField] private Transform parentRed;
     [SerializeField] private Transform parentBlue;
+    [SerializeField] private Animator animator;
 
     private GameObject step;
     private Vector3 oldPos;
@@ -27,6 +28,7 @@ public class drawLine : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        animator = gameObject.GetComponent<Animator>();
         goal = "goal";
         nameCollider = "start";
         startColliders = new List<string>{"YellowStart", "BlueStart", "MagentaStart", "GreenStart", "RedStart", "CyanStart"};
@@ -56,7 +58,9 @@ public class drawLine : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {      
+    void Update() {   
+        if(completedLines.Count == 1) animator.SetTrigger("Open");
+
         if(Input.GetKeyDown(KeyCode.Backspace)) resetUncompleted();
 
         if(Input.GetKeyDown(KeyCode.C)) destroyCurrent();
