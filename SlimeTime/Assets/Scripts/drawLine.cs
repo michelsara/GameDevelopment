@@ -21,10 +21,19 @@ public class drawLine : MonoBehaviour {
     private string nameCollider;
     private string goal; 
     private Color color;
-    private List<Transform> completedLines;
     private bool colliderHit;
     private List<Vector3> positions; 
     private List<string> startColliders;
+    private List<string> goalColliders;
+    private Transform parentCollider;
+    private bool completedYellow;
+    private bool completedCyan;
+    private bool completedBlue;
+    private bool completedMagenta;
+    private bool completedRed;
+    private bool completedGreen;
+
+
 
     // Start is called before the first frame update
     void Start() {
@@ -32,8 +41,10 @@ public class drawLine : MonoBehaviour {
         goal = "goal";
         nameCollider = "start";
         startColliders = new List<string>{"YellowStart", "BlueStart", "MagentaStart", "GreenStart", "RedStart", "CyanStart"};
-        completedLines = new List<Transform>();
+        goalColliders = new List<string>{"YellowGoal", "BluewGoal", "MagentaGoal", "GreenGoal", "RedGoal", "CyanGoal"};
         positions = new List<Vector3>();  
+        completedMagenta = completedBlue = completedCyan = completedRed = completedYellow = completedGreen = false;
+        color = Color.clear;
     }
 
     /*
@@ -42,25 +53,24 @@ public class drawLine : MonoBehaviour {
         Parameters: Collider: the triggered collider
     */
     void OnTriggerEnter(Collider collider) {
-        //Output the Collider's GameObject's name
         nameCollider = collider.name;
-        // Debug.Log("Collider " + nameCollider);
-        destroyNotCompleted();
-
+        parentCollider = collider.transform.parent;
+        Debug.Log(nameCollider);
+        Debug.Log(startColliders.Contains(nameCollider));
         if(startColliders.Contains(nameCollider) || nameCollider.Contains("Step")) colliderHit = true; else colliderHit = false;
         setColor();
+        setParent();
         setGoalToReach();
         newPos = oldPos = collider.transform.position;
-        // Debug.Log("hit " + colliderHit);
-        // Debug.Log("start " + nameCollider);
-        // Debug.Log("goal " + goal);
         setReachedGoal();
+        // destroyNotCompleted();
+        destroyCurrentHit();
+
     }
 
     // Update is called once per frame
     void Update() {   
-        Debug.Log(completedLines.Count);
-        if(completedLines.Count == 6) animator.SetTrigger("Open");
+        if(completedBlue && completedCyan && completedGreen && completedMagenta && completedRed && completedYellow) animator.SetTrigger("Open");
 
         if(Input.GetKeyDown(KeyCode.Backspace)) resetUncompleted();
 
@@ -81,12 +91,14 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void setColor(){
-        if(nameCollider == "YellowStart") color = Color.yellow;
-        else if(nameCollider == "BlueStart") color = Color.blue;
-        else if(nameCollider == "MagentaStart") color = Color.magenta;
-        else if(nameCollider == "RedStart") color = Color.red;
-        else if(nameCollider == "GreenStart") color = Color.green;
-        else if(nameCollider == "CyanStart") color = Color.cyan;
+        if (color == Color.clear) {
+            if(nameCollider == "YellowStart") color = Color.yellow;
+            else if(nameCollider == "BlueStart") color = Color.blue;
+            else if(nameCollider == "MagentaStart") color = Color.magenta;
+            else if(nameCollider == "RedStart") color = Color.red;
+            else if(nameCollider == "GreenStart") color = Color.green;
+            else if(nameCollider == "CyanStart") color = Color.cyan;
+        }
     }
 
     /*
@@ -108,15 +120,12 @@ public class drawLine : MonoBehaviour {
 
             if(positions != null) positions.Clear();
 
-            if(nameCollider == "YellowGoal" && !completedLines.Contains(parentYellow)) completedLines.Add(parentYellow); 
-            else if(nameCollider == "BlueGoal" && !completedLines.Contains(parentBlue)) completedLines.Add(parentBlue);
-            else if(nameCollider == "MagentaGoal" && !completedLines.Contains(parentMagenta)) completedLines.Add(parentMagenta);
-            else if(nameCollider == "RedGoal" && !completedLines.Contains(parentRed)) completedLines.Add(parentRed);
-            else if(nameCollider == "GreenGoal" && !completedLines.Contains(parentGreen)) completedLines.Add(parentGreen);
-            else if(nameCollider == "CyanGoal" && !completedLines.Contains(parentCyan)) completedLines.Add(parentCyan);
-        } else {
-            // Debug.Log("destroy");
-            destroyNotCompleted();
+            if(nameCollider == "YellowGoal" && !completedYellow) completedYellow = true; 
+            else if(nameCollider == "BlueGoal" && !completedBlue) completedBlue = true;
+            else if(nameCollider == "MagentaGoal" && !completedMagenta) completedMagenta = true;
+            else if(nameCollider == "RedGoal" && !completedRed) completedRed = true;
+            else if(nameCollider == "GreenGoal" && !completedGreen) completedGreen = true;
+            else if(nameCollider == "CyanGoal" && !completedCyan) completedCyan = true;
         }
     }
 
@@ -158,19 +167,20 @@ public class drawLine : MonoBehaviour {
         }
     }
 
+    void setParent() {
+          // Debug.Log("spawn");
+        if(color == Color.yellow) parent = parentYellow;
+        else if(color == Color.cyan) parent = parentCyan;
+        else if(color == Color.green) parent = parentGreen;
+        else if(color == Color.magenta) parent = parentMagenta;
+        else if(color == Color.red) parent = parentRed;
+    }
     /*
         Description: spawn colored particles on the current position, depending on the current color
         Paremeters: List: containing Vector3
         Return value: nothing
     */
     void SpawnStep() {
-        // Debug.Log("spawn");
-        if(color == Color.yellow) parent = parentYellow;
-        else if(color == Color.cyan) parent = parentCyan;
-        else if(color == Color.green) parent = parentGreen;
-        else if(color == Color.magenta) parent = parentMagenta;
-        else if(color == Color.red) parent = parentRed;
-
         foreach(Vector3 pos in positions) {
             step = Instantiate(stepPrefab, parent) as GameObject;
             step.transform.position = pos;
@@ -199,18 +209,17 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void resetUncompleted() {
-        if(completedLines.Count > 0) {
-            if (!(completedLines.Contains(parentYellow))) destroyLine(parentYellow);
-            if (!(completedLines.Contains(parentBlue))) destroyLine(parentBlue);
-            if (!(completedLines.Contains(parentGreen))) destroyLine(parentGreen);
-            if (!(completedLines.Contains(parentCyan))) destroyLine(parentCyan);
-            if (!(completedLines.Contains(parentRed))) destroyLine(parentRed);
-            if (!(completedLines.Contains(parentMagenta))) destroyLine(parentMagenta);
+        if (!completedYellow) destroyLine(parentYellow);
+        if (!completedBlue) destroyLine(parentBlue);
+        if (!completedGreen) destroyLine(parentGreen);
+        if (!completedCyan) destroyLine(parentCyan);
+        if (!completedRed) destroyLine(parentRed);
+        if (!completedMagenta) destroyLine(parentMagenta);
 
-            goal = "goal";
-            nameCollider = "start";
-            positions.Clear();
-        }  
+        goal = "goal";
+        nameCollider = "start";
+        positions.Clear();
+        
     }
 
     /*
@@ -233,10 +242,21 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */ 
     void destroyNotCompleted() {
-        if (nameCollider == "YellowStart" && color != Color.yellow && !(completedLines.Contains(parentYellow))) destroyLine(parentYellow);
-        if (nameCollider == "CyanStar" && color != Color.cyan && !(completedLines.Contains(parentCyan))) destroyLine(parentCyan);
-        if (nameCollider == "MagentaStart" && color != Color.magenta && !(completedLines.Contains(parentMagenta))) destroyLine(parentMagenta);
-        if (nameCollider == "BlueStart" && color != Color.blue && !(completedLines.Contains(parentBlue))) destroyLine(parentBlue);
-        if (nameCollider == "RedStart" && color != Color.red && !(completedLines.Contains(parentRed))) destroyLine(parentRed);
+        if (nameCollider == "YellowStart" && color != Color.yellow && !completedYellow) destroyLine(parentYellow);
+        if (nameCollider == "CyanStar" && color != Color.cyan && !completedCyan) destroyLine(parentCyan);
+        if (nameCollider == "MagentaStart" && color != Color.magenta && !completedMagenta) destroyLine(parentMagenta);
+        if (nameCollider == "BlueStart" && color != Color.blue && !completedBlue) destroyLine(parentBlue);
+        if (nameCollider == "RedStart" && color != Color.red && !completedRed) destroyLine(parentRed);
+        if (nameCollider == "GreenStart" && color != Color.green && !completedGreen) destroyLine(parentGreen);
+    }
+
+    void destroyCurrentHit() {
+        if (color == Color.cyan && ((nameCollider.Contains("Step") && parentCollider != parentCyan) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "CyanStart"))) destroyLine(parentCyan);
+        if (color == Color.blue && ((nameCollider.Contains("Step") && parentCollider != parentBlue) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "Bluetart"))) destroyLine(parentBlue);
+        if (color == Color.red && ((nameCollider.Contains("Step") && parentCollider != parentRed) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "RedStart"))) destroyLine(parentRed);
+        if (color == Color.magenta && ((nameCollider.Contains("Step") && parentCollider != parentMagenta) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "MagentaStart"))) destroyLine(parentMagenta);
+        if (color == Color.green && ((nameCollider.Contains("Step") && parentCollider != parentGreen) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "GreenStart"))) destroyLine(parentGreen);
+        if (color == Color.yellow && ((nameCollider.Contains("Step") && parentCollider != parentYellow) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "YellowStart"))) destroyLine(parentYellow);
+
     }
 }
