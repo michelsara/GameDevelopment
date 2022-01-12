@@ -11,9 +11,15 @@ public class Inventory : MonoBehaviour
     private Dictionary<string, int> items;
 	[SerializeField] private int maxCapability = 12;
 	[SerializeField] private int perItemMaxCapability = 100;
+	private InteractableInventory interestPointRequest = null;
 
 	void Awake() {
 		items = new Dictionary<string, int>();
+	}
+
+	void Start() {
+		add("Explosive", 1);
+		add("Acid", 1);
 	}
 
     public void add(string name, int quantity) {
@@ -68,32 +74,69 @@ public class Inventory : MonoBehaviour
 		List<string> keyList = new List<string>(this.items.Keys);
 		for(int i = 0; i < keyList.Count; i++) {
 
-			GameObject slot = hud.transform.Find("inventory_parchment ("+i+")").gameObject;
-			if(slot.transform.Find("item (" + i + ")") == null) {
-				string name = keyList[i];
-				int quantity = items[name];
+			string name = keyList[i];
+			int quantity = items[name];
 
+			GameObject slot = hud.transform.Find("board").Find("inventory_parchment ("+i+")").gameObject;
+			Transform itemTransform = slot.transform.Find("item (" + i + ")");
+			GameObject item;
+			
+			if(itemTransform == null) {
+
+				//Image and Text
 				Sprite sprite = Resources.Load<Sprite>("Images/" + name);
-
-				GameObject item = Instantiate(itemUI, itemUI.transform.position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+				item = Instantiate(itemUI, itemUI.transform.position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 				item.transform.Find("image").GetComponent<Image>().sprite = sprite;
 				item.transform.Find("name").GetComponent<Text>().text = name + " ("+quantity+")";
 
+				//Eventual callback for interactableInventory insterest point
+				if(interestPointRequest != null) {
+					Button button = item.GetComponent<Button>();
+					button.onClick.AddListener(() => interestPointRequest.choose(name));
+				}
+
+				//Location inside inventory cell
 				item.transform.SetParent(slot.transform);
 				item.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				item.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 				item.transform.name = "item ("+i+")";
 			}
+
+			//Eventual callback for interactableInventory insterest point
+			else if(interestPointRequest != null) {
+				item = itemTransform.gameObject;
+				Button button = item.GetComponent<Button>();
+				button.onClick.AddListener(() => interestPointRequest.choose(name));
+			}
 		}
 
 		hudActive = true;
 		hud.SetActive(true);
+
 		Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+		Time.timeScale = 0;
 	}
 
 	public void closeHUD() {
+
+		//Deletes every item from the ui
+		Transform board = hud.transform.Find("board");
+		foreach (Transform parchment in board)
+			foreach(Transform item in parchment)
+				Destroy(item.gameObject);
+
 		hudActive = false;
 		hud.SetActive(false);
+
 		Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+		Time.timeScale = 1;
+
+		interestPointRequest = null;
+	}
+
+	public void setInterestPointRequest(InteractableInventory interestPoint) {
+		interestPointRequest = interestPoint;
 	}
 }

@@ -38,6 +38,8 @@ public class MainHallPuzzleRune : Interactable
 		else {
 			transform.parent.GetComponent<MainHallPuzzle>().checkIfCompleted();
 		}
+
+		playSound();
 	}
 
 	public override void interact() {

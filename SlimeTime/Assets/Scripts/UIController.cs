@@ -9,14 +9,14 @@ public class UIController : MonoBehaviour
 	*	AUDIO
 	*/
 	[SerializeField] private GameObject audioContext;
-	private AudioManager audioManager;
+	private MenuAudioManager audioManager;
 	private bool isAudioActive = true;
 	[SerializeField] private Sprite audioEnabled;
 	[SerializeField] private Sprite audioDisabled;
 	AudioSource source;
 
 	void Awake() {
-		audioManager = audioContext.GetComponent<AudioManager>();
+		audioManager = audioContext.GetComponent<MenuAudioManager>();
 		source = this.GetComponent<AudioSource>();
 	}
 

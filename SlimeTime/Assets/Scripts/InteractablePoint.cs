@@ -6,7 +6,7 @@ public class InteractablePoint : Interactable
 {
 	[SerializeField] private bool destroyParticle = false;
 	[SerializeField] private bool destroyRelated = false;
-	[SerializeField] private GameObject relatedObject;
+	[SerializeField] protected GameObject relatedObject;
 	[SerializeField] private GameObject player;
 	[SerializeField] private string tooltipString;
 	protected Inventory inventory;
@@ -22,6 +22,9 @@ public class InteractablePoint : Interactable
 
 		//Remove the related object from scene
 		if(destroyRelated) Destroy(relatedObject);
+
+		//Play sound if immediatly requested
+		if(playSoundImmediatly) playSound();
 	}
 
 	public override void tooltip(Tootltip tooltip) {
