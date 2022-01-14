@@ -11,8 +11,8 @@ public abstract class Interactable : MonoBehaviour
     public abstract void interact();
     public void playSound() {
 		if(sound != null) {
-			audioSource.GetComponent<AudioSource>().clip = sound;
-			audioSource.GetComponent<AudioSource>().Play();
+			//audioSource.GetComponent<AudioSource>().clip = sound;
+			audioSource.GetComponent<AudioSource>().PlayOneShot(sound);
 		}
 	}
 

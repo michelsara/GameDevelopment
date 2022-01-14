@@ -101,6 +101,7 @@ public class InteractableCrafting : InteractablePoint, IInvetory
 
 				inventory.add(item, 1);
 				updateHUD();
+				playSound();
 			}
 		}
 	}
