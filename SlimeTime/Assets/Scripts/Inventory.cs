@@ -20,14 +20,6 @@ public class Inventory : MonoBehaviour, IInvetory
 
 	void Start() {
 		hud.transform.Find("Close Button").GetComponent<Button>().onClick.AddListener(() => closeHUD());
-		
-		add("Explosive", 1);
-		add("Acid", 1);
-		add("Torch", 1);
-
-		add("Oil", 1);
-		add("Salt", 1);
-		add("Toxic Roots", 1);
 	}
 
     public void add(string name, int quantity) {
