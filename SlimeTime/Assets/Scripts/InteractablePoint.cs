@@ -11,7 +11,7 @@ public class InteractablePoint : Interactable
 	[SerializeField] private string tooltipString;
 	protected Inventory inventory;
 
-	void Awake() {
+	public void Awake() {
 		inventory = player.GetComponent<Inventory>();
 	}
 

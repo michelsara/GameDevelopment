@@ -35,10 +35,5 @@ public class CharacterController : MonoBehaviour {
         translation = Input.GetAxis("Vertical") * speedModifier * Time.deltaTime;
         straffe = Input.GetAxis("Horizontal") * speedModifier * Time.deltaTime;
         transform.Translate(straffe, 0, translation);
-
-        if (Input.GetKeyDown("escape")) {
-            // turn on the cursor
-            Cursor.lockState = CursorLockMode.None;
-        }
     }
 }

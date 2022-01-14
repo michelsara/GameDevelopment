@@ -6,6 +6,7 @@ public class DeviceOperator : MonoBehaviour {
     public float maxRange;
 	[SerializeField] private Camera _camera;
 	[SerializeField] private GameObject tooltip;
+	[SerializeField] private int[] particleColor = {88, 217, 243};
 	private ParticleSystem prevParticle;
 
 	void Update() {
@@ -62,8 +63,7 @@ public class DeviceOperator : MonoBehaviour {
 				prevParticle = obj.GetComponent<ParticleSystem>();
 				if(prevParticle != null) {
 					ParticleSystem.MainModule psm = prevParticle.main;
-					int[] rgb = {88, 217, 243};
-					psm.startColor = new Color(rgb[0]/255.0f, rgb[1]/255.0f, rgb[2]/255.0f);
+					psm.startColor = new Color(particleColor[0]/255.0f, particleColor[1]/255.0f, particleColor[2]/255.0f);
 				}
 			}
 		}
