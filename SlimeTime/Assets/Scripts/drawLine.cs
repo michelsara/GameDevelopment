@@ -38,8 +38,10 @@ public class drawLine : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         camera = Camera.allCameras;
-        Debug.Log(camera[0]);
-        camera[1].enabled = false;
+        for(int i = 0; i<Camera.allCamerasCount; i++){
+            Debug.Log(camera[i]);
+        } 
+        camera[0].enabled = false;
         animator.ResetTrigger("Open");
         goal = "goal";
         nameCollider = "start";
@@ -58,6 +60,8 @@ public class drawLine : MonoBehaviour {
     void OnTriggerEnter(Collider collider) {
         nameCollider = collider.name;
         parentCollider = collider.transform.parent;
+        Debug.Log(nameCollider);
+        Debug.Log(parentCollider);
         setColor();
         setParent();
         if(startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)) startHit = true; else startHit = false;
