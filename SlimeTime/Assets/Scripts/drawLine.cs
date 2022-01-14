@@ -21,7 +21,7 @@ public class drawLine : MonoBehaviour {
     private string nameCollider;
     private string goal; 
     private Color color;
-    private bool colliderHit;
+    private bool startHit;
     private List<Vector3> positions; 
     private List<string> startColliders;
     private List<string> goalColliders;
@@ -33,8 +33,13 @@ public class drawLine : MonoBehaviour {
     private bool completedRed;
     private bool completedGreen;
 
+    private Camera[] camera;
+
     // Start is called before the first frame update
     void Start() {
+        camera = Camera.allCameras;
+        Debug.Log(camera[0]);
+        camera[1].enabled = false;
         animator.ResetTrigger("Open");
         goal = "goal";
         nameCollider = "start";
@@ -55,10 +60,10 @@ public class drawLine : MonoBehaviour {
         parentCollider = collider.transform.parent;
         setColor();
         setParent();
-        if(startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)) colliderHit = true; else colliderHit = false;
+        if(startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)) startHit = true; else startHit = false;
         setGoalToReach();
+        if(nameCollider == goal) setReachedGoal(collider.transform.position);
         newPos = oldPos = collider.transform.position;
-        if(nameCollider == goal) setReachedGoal();
         destroyCurrentHit();
 
     }
@@ -66,6 +71,17 @@ public class drawLine : MonoBehaviour {
     // Update is called once per frame
     void Update() {   
         if(completedBlue && completedCyan && completedGreen && completedMagenta && completedRed && completedYellow) animator.SetTrigger("Open");
+
+        if(Input.GetKeyDown(KeyCode.T)) {
+            
+            if(camera[0].enabled) {
+                camera[0].enabled = false;
+                camera[1].enabled = true;
+            } else {
+                camera[0].enabled = true;
+                camera[1].enabled = false;
+            }
+        }
 
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Backspace)) destroyAll();
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.C)) destroyLine(parentCyan);
@@ -76,7 +92,7 @@ public class drawLine : MonoBehaviour {
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.M)) destroyLine(parentMagenta);
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.U)) destroyUncompleted();
         
-        if(colliderHit){
+        if(startHit){
         	newPos = playerGame.transform.position;
             CreatePositions(newPos, oldPos);     
             SpawnStep();
@@ -121,13 +137,13 @@ public class drawLine : MonoBehaviour {
         Parameters: nothing
         Return value: nothing
     */
-    void setReachedGoal() {
+    void setReachedGoal(Vector3 position) {
 
         Debug.Log("goal reached");
         
-        colliderHit = false;
-
-        CreatePositions(newPos, oldPos);     
+        startHit = false;
+        
+        CreatePositions(position, oldPos);     
         SpawnStep();
         if(positions != null) positions.Clear();
         color = Color.clear;
