@@ -105,3 +105,5 @@ public class InteractableCrafting : InteractablePoint, IInvetory
 		}
 	}
 }
+
+//-16.62
