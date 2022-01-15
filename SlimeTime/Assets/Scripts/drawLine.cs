@@ -74,8 +74,8 @@ public class drawLine : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {   
-        // if(completedBlue && completedCyan && completedGreen && completedMagenta && completedRed && completedYellow) animator.SetTrigger("Open");
-        if(completedMagenta) animator.SetTrigger("Open");
+        if(completedBlue && completedCyan && completedGreen && completedMagenta && completedRed && completedYellow) animator.SetTrigger("Open");
+        // if(completedMagenta) animator.SetTrigger("Open");
 
         if(Input.GetKeyDown(KeyCode.T)) {
             
