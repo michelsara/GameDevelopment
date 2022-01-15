@@ -24,11 +24,12 @@ public class InteractableInventory : InteractablePoint
 			inventory.closeHUD();
 
 			//Enables the door
-			if(door)
+			if(door) {
 				relatedObject.GetComponent<HingeJoint>().useSpring = false;
+				relatedObject.transform.parent.GetComponent<BoxCollider>().enabled = false;
+			}
 			//Wall explosion
 			else {
-				//relatedObject.transform.Find("Explosion").GetComponent<ParticleSystem>().Play(true);
 				GameObject explosion = relatedObject.transform.Find("Explosion").gameObject;
 				ParticleSystem particleSystem = explosion.GetComponent<ParticleSystem>();
 				explosion.SetActive(true);
