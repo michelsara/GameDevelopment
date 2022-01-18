@@ -81,7 +81,6 @@ public class SpecialMovement : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             _animator.SetBool("movement", true);
-            _animator.speed = speed / 2;
             //3rd camera movement
             if (_3rdCamOn)
             {
@@ -141,6 +140,7 @@ public class SpecialMovement : MonoBehaviour
             speed = defaultSpeed;
             sprint = false;
         }
+        _animator.speed = speed / 2;
     }
 
     //Switch camera
