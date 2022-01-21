@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CrystalMirror
   - EndPoint
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -16,6 +17,8 @@ TagManager:
   - Structure
   - Door
   - Prop
+  - Furniture
+  - Props
   - Hitbox
   - 
   - 

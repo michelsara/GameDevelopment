@@ -18,9 +18,6 @@ public class Movement : MonoBehaviour
     private Vector3 velocity;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
-    public LayerMask groundStructure;
-    public LayerMask groundFurniture;
-    public LayerMask groundProps;
 
     int oldHorizontal = 0;
     int oldVertical = 0;
@@ -55,14 +52,13 @@ public class Movement : MonoBehaviour
 
         //Check if can jump
         _animator.speed = speed / 2;
-        if (Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure);
-        else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundFurniture))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundFurniture);
-        else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure);
-        else
-            isGrounded = false;
+		RaycastHit raycastHit = new RaycastHit();
+		isGrounded = Physics.Raycast(
+			groundCheck.position,
+			new Vector3(0.0f, -1.0f, 0.0f),
+			out raycastHit,
+			groundDistance
+		);
 
         if (isGrounded && velocity.y < 0)
             velocity.y = -2.0f;
@@ -112,7 +108,7 @@ public class Movement : MonoBehaviour
         }
 
         //Jump and gravity
-        if (Input.GetButtonDown("Jump") && isGrounded)
+		if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
@@ -140,13 +136,13 @@ public class Movement : MonoBehaviour
     //Switch camera
     void cameraSwitch()
     {
-        if (Input.GetKey("f") && _3rdCamOn)
+        if (Input.GetKeyUp("f") && _3rdCamOn)
         {
             _3rdCamOn = false;
             _3rdCam.gameObject.SetActive(false);
             _1stCam.gameObject.SetActive(true);
         }
-        else if (Input.GetKey("f") && !_3rdCamOn)
+        else if (Input.GetKeyUp("f") && !_3rdCamOn)
         {
             _3rdCamOn = true;
             _1stCam.gameObject.SetActive(false);
