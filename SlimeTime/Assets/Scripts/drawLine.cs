@@ -40,9 +40,6 @@ public class drawLine : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         camera = Camera.allCameras;
-        for(int i = 0; i<Camera.allCamerasCount; i++){
-            Debug.Log(camera[i]);
-        } 
         camera[0].enabled = false;
         animator.ResetTrigger("Open");
         goal = "goal";
@@ -63,9 +60,13 @@ public class drawLine : MonoBehaviour {
         nameCollider = collider.name;
         parentCollider = collider.transform.parent;
         Debug.Log(nameCollider);
-        Debug.Log(parentCollider);
+        // Debug.Log(parentCollider);
+
         setColor();
         setParent();
+        Debug.Log(parent);
+        Debug.Log("Start " + startColliders.Contains(nameCollider));
+        Debug.Log( "IF " + (startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)));
         if(startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)) startHit = true; else startHit = false;
         setGoalToReach();
         if(nameCollider == goal) setReachedGoal(collider.transform.position);
@@ -99,7 +100,8 @@ public class drawLine : MonoBehaviour {
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.M)) destroyLine(parentMagenta);
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.U)) destroyUncompleted();
         
-        if(startHit && isWalking && Input.GetKey(KeyCode.Space)){
+    
+        if(startHit && isMoving() && Input.GetKey(KeyCode.Mouse1)){
         	newPos = playerGame.transform.position;
             CreatePositions(newPos, oldPos);     
             SpawnStep();
@@ -109,12 +111,14 @@ public class drawLine : MonoBehaviour {
     }
 
 
-    void isMoving(){
+    bool isMoving(){
         Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
  
         // Checks if player is walking and isGrounded
         // Will allow head bob
         if (targetVelocity.x != 0 || targetVelocity.z != 0) isWalking = true; else isWalking = false;
+
+        return isWalking;
     }
 
     /*
@@ -196,7 +200,6 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void CreatePositions(Vector3 newPosition, Vector3 oldPosition) {
-        Debug.Log("pos");
         float distance = Vector3.Distance(oldPosition, newPosition);
         float stepSize = stepPrefab.GetComponent<ParticleSystem>().shape.radius/ distance;
         float percentage = stepSize;
@@ -236,6 +239,8 @@ public class drawLine : MonoBehaviour {
         goal = "goal";
         nameCollider = "start";
         positions.Clear();
+        color = Color.clear;
+        startHit = false;
     }
 
     /*
