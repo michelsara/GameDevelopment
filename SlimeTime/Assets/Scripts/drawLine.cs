@@ -33,6 +33,8 @@ public class drawLine : MonoBehaviour {
     private bool completedRed;
     private bool completedGreen;
 
+    private bool isWalking;
+
     private Camera[] camera;
 
     // Start is called before the first frame update
@@ -92,13 +94,22 @@ public class drawLine : MonoBehaviour {
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.M)) destroyLine(parentMagenta);
         if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.U)) destroyUncompleted();
         
-        if(startHit){
+        if(startHit && isWalking && Input.GetKey(KeyCode.Space)){
         	newPos = playerGame.transform.position;
             CreatePositions(newPos, oldPos);     
             SpawnStep();
             oldPos = newPos;
         }
         
+    }
+
+
+    void isMoving(){
+        Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+ 
+        // Checks if player is walking and isGrounded
+        // Will allow head bob
+        if (targetVelocity.x != 0 || targetVelocity.z != 0) isWalking = true; else isWalking = false;
     }
 
     /*
