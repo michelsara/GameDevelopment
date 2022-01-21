@@ -60,13 +60,10 @@ public class drawLine : MonoBehaviour {
         nameCollider = collider.name;
         parentCollider = collider.transform.parent;
         Debug.Log(nameCollider);
-        // Debug.Log(parentCollider);
 
         setColor();
         setParent();
-        Debug.Log(parent);
-        Debug.Log("Start " + startColliders.Contains(nameCollider));
-        Debug.Log( "IF " + (startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)));
+
         if(startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)) startHit = true; else startHit = false;
         setGoalToReach();
         if(nameCollider == goal) setReachedGoal(collider.transform.position);
@@ -233,6 +230,7 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void destroyLine(Transform line) {
+        Debug.Log("DESTROY");
         for (int i = 0; i < line.transform.childCount; i++){
             Destroy(line.transform.GetChild(i).gameObject);
         }
