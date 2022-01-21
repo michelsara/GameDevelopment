@@ -59,8 +59,8 @@ public class SpecialMovement : MonoBehaviour
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure);
         else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundFurniture))
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundFurniture);
-        else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure);
+        else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundProps))
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundProps);
         else
             isGrounded = false;
 
@@ -77,7 +77,6 @@ public class SpecialMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         sprintCheck();
-        transform.rotation = Quaternion.Euler(0.0f, cam.eulerAngles.y, 0.0f);
         if (direction.magnitude >= 0.1f)
         {
             _animator.SetBool("movement", true);
@@ -91,6 +90,8 @@ public class SpecialMovement : MonoBehaviour
                 if (move.x != 0 && move.z != 0)
                     move.x = 0;
 
+                float rotationAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, Mathf.Round(targetAngle / 90) * 90, ref turnSmoothVelocity, turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0.0f, rotationAngle, 0.0f);
                 controller.Move(move * speed * Time.deltaTime);//moveDir.normalized
             }
             //1st camera movement
