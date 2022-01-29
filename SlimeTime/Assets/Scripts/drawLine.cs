@@ -19,12 +19,11 @@ public class drawLine : MonoBehaviour {
     private Vector3 newPos;
     private Transform parent;
     private string nameCollider;
+    private string tagCollider;
     private string goal; 
     private Color color;
     private bool startHit;
     private List<Vector3> positions; 
-    private List<string> startColliders;
-    private List<string> goalColliders;
     private Transform parentCollider;
     private bool completedYellow;
     private bool completedCyan;
@@ -35,17 +34,15 @@ public class drawLine : MonoBehaviour {
 
     private bool isWalking;
 
-    private Camera[] camera;
+    private Camera[] gameCamera;
 
     // Start is called before the first frame update
     void Start() {
-        camera = Camera.allCameras;
-        camera[0].enabled = false;
+        gameCamera = Camera.allCameras;
+        gameCamera[0].enabled = false;
         animator.ResetTrigger("Open");
         goal = "goal";
         nameCollider = "start";
-        startColliders = new List<string>{"YellowStart", "BlueStart", "MagentaStart", "GreenStart", "RedStart", "CyanStart"};
-        goalColliders = new List<string>{"YellowGoal", "BlueGoal", "MagentaGoal", "GreenGoal", "RedGoal", "CyanGoal"};
         positions = new List<Vector3>();  
         completedMagenta = completedBlue = completedCyan = completedRed = completedYellow = completedGreen = false;
         color = Color.clear;
@@ -57,14 +54,17 @@ public class drawLine : MonoBehaviour {
         Parameters: Collider: the triggered collider
     */
     void OnTriggerEnter(Collider collider) {
+        tagCollider = collider.tag;
         nameCollider = collider.name;
         parentCollider = collider.transform.parent;
-        Debug.Log(nameCollider);
 
         setColor();
         setParent();
-
-        if(startColliders.Contains(nameCollider) || (nameCollider.Contains("Step") && parentCollider == parent)) startHit = true; else startHit = false;
+      
+        if (tagCollider == "Start") {
+            if(!startHit) startHit = true; else startHit = false;
+        } 
+        
         setGoalToReach();
         if(nameCollider == goal) setReachedGoal(collider.transform.position);
         newPos = oldPos = collider.transform.position;
@@ -74,32 +74,59 @@ public class drawLine : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {   
+
+        Debug.Log("Complete magenta: " + completedMagenta); 
+        Debug.Log("Complete blue:" + completedBlue); 
+        Debug.Log("Complete cyan:" + completedCyan); 
+        Debug.Log("Complete red:" + completedRed); 
+        Debug.Log("Complete yellow:" + completedYellow); 
+        Debug.Log("Complete green:" + completedGreen); 
         if(completedBlue && completedCyan && completedGreen && completedMagenta && completedRed && completedYellow) animator.SetTrigger("Open");
         // if(completedMagenta) animator.SetTrigger("Open");
 
         if(Input.GetKeyDown(KeyCode.T)) {
             
-            if(camera[0].enabled) {
-                camera[0].enabled = false;
-                camera[1].enabled = true;
+            if(gameCamera[0].enabled) {
+                gameCamera[0].enabled = false;
+                gameCamera[1].enabled = true;
             } else {
-                camera[0].enabled = true;
-                camera[1].enabled = false;
+                gameCamera[0].enabled = true;
+                gameCamera[1].enabled = false;
             }
         }
+        if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+            if(Input.GetKeyDown(KeyCode.Backspace)) destroyAll();
 
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Backspace)) destroyAll();
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.C)) destroyLine(parentCyan);
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.B)) destroyLine(parentBlue);
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.R)) destroyLine(parentRed);
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.G)) destroyLine(parentGreen);
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Y)) destroyLine(parentYellow);
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.M)) destroyLine(parentMagenta);
-        if((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.U)) destroyUncompleted();
-        
-    
+            if(Input.GetKeyDown(KeyCode.C)) {
+                destroyLine(parentCyan);
+                completedCyan = false;
+            }
+            if(Input.GetKeyDown(KeyCode.B)) {
+                destroyLine(parentBlue);
+                completedBlue = false;
+            }
+            if(Input.GetKeyDown(KeyCode.R)) {
+                destroyLine(parentRed);
+                completedRed = false;
+            }
+            if(Input.GetKeyDown(KeyCode.G)) {
+                destroyLine(parentGreen);
+                completedGreen = false;
+            }
+            if(Input.GetKeyDown(KeyCode.Y)) {
+                destroyLine(parentYellow);
+                completedYellow = false;
+            }
+            if(Input.GetKeyDown(KeyCode.M)) {
+                destroyLine(parentMagenta);
+                completedMagenta = false;
+            }
+            if(Input.GetKeyDown(KeyCode.U)) destroyUncompleted();
+        }
+
         if(startHit && isMoving() && Input.GetKey(KeyCode.Mouse1)){
-        	newPos = playerGame.transform.position;
+            newPos = playerGame.transform.position;
+            Debug.Log(newPos);
             CreatePositions(newPos, oldPos);     
             SpawnStep();
             oldPos = newPos;
@@ -154,12 +181,9 @@ public class drawLine : MonoBehaviour {
         Parameters: nothing
         Return value: nothing
     */
-    void setReachedGoal(Vector3 position) {
-
-        Debug.Log("goal reached");
-        
+    void setReachedGoal(Vector3 position) {        
         startHit = false;
-        
+
         CreatePositions(position, oldPos);     
         SpawnStep();
         if(positions != null) positions.Clear();
@@ -198,7 +222,7 @@ public class drawLine : MonoBehaviour {
     */
     void CreatePositions(Vector3 newPosition, Vector3 oldPosition) {
         float distance = Vector3.Distance(oldPosition, newPosition);
-        float stepSize = stepPrefab.GetComponent<ParticleSystem>().shape.radius/ distance;
+        float stepSize = stepPrefab.GetComponent<ParticleSystem>().shape.radius;
         float percentage = stepSize;
         for(int i = 0; percentage < 1; i += 2) {
             //TODO: change based on slime Y position
@@ -230,7 +254,6 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void destroyLine(Transform line) {
-        Debug.Log("DESTROY");
         for (int i = 0; i < line.transform.childCount; i++){
             Destroy(line.transform.GetChild(i).gameObject);
         }
@@ -267,7 +290,8 @@ public class drawLine : MonoBehaviour {
         destroyLine(parentMagenta);
         destroyLine(parentBlue);
         destroyLine(parentRed);
-        destroyLine(parentGreen);  
+        destroyLine(parentGreen); 
+        completedMagenta = completedBlue = completedCyan = completedRed = completedYellow = completedGreen = false;
     }
 
     /*
@@ -276,11 +300,11 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */ 
     void destroyCurrentHit() {
-        if (color == Color.cyan && ((nameCollider.Contains("Step") && parentCollider != parentCyan) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "CyanStart"))) destroyLine(parentCyan);
-        if (color == Color.blue && ((nameCollider.Contains("Step") && parentCollider != parentBlue) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "BlueStart"))) destroyLine(parentBlue);
-        if (color == Color.red && ((nameCollider.Contains("Step") && parentCollider != parentRed) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "RedStart"))) destroyLine(parentRed);
-        if (color == Color.magenta && ((nameCollider.Contains("Step") && parentCollider != parentMagenta) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "MagentaStart"))) destroyLine(parentMagenta);
-        if (color == Color.green && ((nameCollider.Contains("Step") && parentCollider != parentGreen) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "GreenStart"))) destroyLine(parentGreen);
-        if (color == Color.yellow && ((nameCollider.Contains("Step") && parentCollider != parentYellow) || (goalColliders.Contains(nameCollider) && nameCollider != goal) || (startColliders.Contains(nameCollider) && nameCollider != "YellowStart"))) destroyLine(parentYellow);
+        if (color == Color.cyan && ((nameCollider.Contains("Step") && parentCollider != parentCyan) || (tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "CyanStart"))) destroyLine(parentCyan);
+        if (color == Color.blue && ((nameCollider.Contains("Step") && parentCollider != parentBlue) || (tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "BlueStart"))) destroyLine(parentBlue);
+        if (color == Color.red && ((nameCollider.Contains("Step") && parentCollider != parentRed) || (tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "RedStart"))) destroyLine(parentRed);
+        if (color == Color.magenta && ((nameCollider.Contains("Step") && parentCollider != parentMagenta) || (tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "MagentaStart"))) destroyLine(parentMagenta);
+        if (color == Color.green && ((nameCollider.Contains("Step") && parentCollider != parentGreen) || (tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "GreenStart"))) destroyLine(parentGreen);
+        if (color == Color.yellow && ((nameCollider.Contains("Step") && parentCollider != parentYellow) || (tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "YellowStart"))) destroyLine(parentYellow);
     }
 }
