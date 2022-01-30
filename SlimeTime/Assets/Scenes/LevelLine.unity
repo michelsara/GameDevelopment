@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 35239606}
   - component: {fileID: 35239605}
   - component: {fileID: 35239604}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: First Person Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1601,9 +1601,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 187729309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedLine
-  m_TagString: LineParent
+  m_TagString: stepRed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1801,6 +1801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepPrefab: {fileID: 6010349728426089211, guid: 38bf0481f6c844f5a93df3e73a3248b6, type: 3}
   playerGame: {fileID: 195419627}
+  parentPlayer: {fileID: 0}
   parentYellow: {fileID: 1527569260}
   parentGreen: {fileID: 1688457589}
   parentCyan: {fileID: 1551239670}
@@ -1820,7 +1821,7 @@ GameObject:
   - component: {fileID: 196508035}
   - component: {fileID: 196508034}
   - component: {fileID: 196508033}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2984,7 +2985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 340932084}
   - component: {fileID: 340932083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MiddleRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5903,6 +5904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepPrefab: {fileID: 6010349728426089211, guid: 38bf0481f6c844f5a93df3e73a3248b6, type: 3}
   playerGame: {fileID: 2097015355}
+  parentPlayer: {fileID: 737538676}
   parentYellow: {fileID: 1527569260}
   parentGreen: {fileID: 1688457589}
   parentCyan: {fileID: 1551239670}
@@ -6082,9 +6084,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 789243514}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlueLine
-  m_TagString: LineParent
+  m_TagString: stepBlue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6182,7 +6184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 799947680}
   - component: {fileID: 799947679}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BottomRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6238,7 +6240,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799947678}
-  m_LocalRotation: {x: 0.0060747755, y: -0.000000017212628, z: 1.04564794e-10, w: 0.9999816}
+  m_LocalRotation: {x: 0.0060747755, y: 0.000000017212628, z: -1.04564794e-10, w: 0.9999816}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6507,7 +6509,7 @@ GameObject:
   - component: {fileID: 815578850}
   - component: {fileID: 815578849}
   - component: {fileID: 815578848}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Third Person Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7424,7 +7426,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 930639683}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CameraFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7567,7 +7569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 942524475}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7687,7 +7689,7 @@ GameObject:
   - component: {fileID: 945811722}
   - component: {fileID: 945811721}
   - component: {fileID: 945811720}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8608,9 +8610,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1086347946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MagentaLine
-  m_TagString: LineParent
+  m_TagString: stepMagenta
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9115,9 +9117,9 @@ GameObject:
   - component: {fileID: 1208122957}
   - component: {fileID: 1208122956}
   - component: {fileID: 1208122958}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9680,7 +9682,7 @@ GameObject:
   - component: {fileID: 1266823871}
   - component: {fileID: 1266823870}
   - component: {fileID: 1266823869}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11462,9 +11464,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1527569260}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: YellowLine
-  m_TagString: LineParent
+  m_TagString: stepYellow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11808,9 +11810,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1551239670}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CyanLine
-  m_TagString: LineParent
+  m_TagString: stepCyan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11838,7 +11840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578237940}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12407,9 +12409,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688457589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GreenLine
-  m_TagString: LineParent
+  m_TagString: stepGreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13400,13 +13402,65 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1208122957}
     m_Modifications:
+    - target: {fileID: 1063458555033194, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1098284176842396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159606757873184, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332007666501914, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402250236228086, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1458944189346406, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1463649340635624, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503310629534036, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665332316372866, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704581108590040, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
       propertyPath: m_Name
       value: SlimePBR
       objectReference: {fileID: 0}
     - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989916952965676, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4016204425067502, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13901,7 +13955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1888840078}
   - component: {fileID: 1888840077}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TopRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14143,7 +14197,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894819119}
-  m_LocalRotation: {x: 0.020587318, y: -0.0000000027799056, z: -1.539813e-11, w: 0.9997881}
+  m_LocalRotation: {x: 0.020587318, y: 0.0000000027799056, z: 1.539813e-11, w: 0.9997881}
   m_LocalPosition: {x: 0, y: 1.5621783, z: 3.273156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -15701,7 +15755,7 @@ GameObject:
   - component: {fileID: 2088091329}
   - component: {fileID: 2088091328}
   - component: {fileID: 2088091327}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

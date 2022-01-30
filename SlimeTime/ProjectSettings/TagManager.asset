@@ -7,6 +7,12 @@ TagManager:
   - Goal
   - Start
   - LineParent
+  - stepMagenta
+  - stepRed
+  - stepCyan
+  - stepBlue
+  - stepGreen
+  - stepYellow
   layers:
   - Default
   - TransparentFX
@@ -18,7 +24,7 @@ TagManager:
   - Door
   - Furniture
   - Props
-  - 
+  - Line
   - 
   - 
   - 

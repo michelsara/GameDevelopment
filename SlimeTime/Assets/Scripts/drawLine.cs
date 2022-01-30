@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class drawLine : MonoBehaviour {
+
+    private string tagName;
    
     [SerializeField] private GameObject stepPrefab;
     [SerializeField] private GameObject playerGame;
+    [SerializeField] private GameObject parentPlayer;
     [SerializeField] private Transform parentYellow;
     [SerializeField] private Transform parentGreen;
     [SerializeField] private Transform parentCyan;
@@ -14,27 +17,27 @@ public class drawLine : MonoBehaviour {
     [SerializeField] private Transform parentBlue;
     [SerializeField] private Animator animator;
 
-    private GameObject step;
-    private Vector3 oldPos;
-    private Vector3 newPos;
-    private Transform parent;
-    private string nameCollider;
-    private string tagCollider;
-    private string goal; 
-    private Color color;
-    private bool startHit;
-    private List<Vector3> positions; 
-    private Transform parentCollider;
-    private bool completedYellow;
-    private bool completedCyan;
-    private bool completedBlue;
-    private bool completedMagenta;
-    private bool completedRed;
-    private bool completedGreen;
+    private static GameObject step;
+    private static Vector3 oldPos;
+    private static Vector3 newPos;
+    private static Transform parent;
+    private static string nameCollider;
+    private static string tagCollider;
+    private static string goal; 
+    public static Color color;
+    private static bool startHit;
+    private static List<Vector3> positions; 
+    public static Transform parentCollider;
+    public static bool completedYellow;
+    public static bool completedCyan;
+    public static bool completedBlue;
+    public static bool completedMagenta;
+    public static bool completedRed;
+    public static bool completedGreen;
 
-    private bool isWalking;
+    private static bool isWalking;
 
-    private Camera[] gameCamera;
+    private static Camera[] gameCamera;
 
     // Start is called before the first frame update
     void Start() {
@@ -62,7 +65,9 @@ public class drawLine : MonoBehaviour {
         setParent();
       
         if (tagCollider == "Start") {
-            if(!startHit) startHit = true; else startHit = false;
+            if ((parent == parentMagenta && !completedMagenta) || (parent == parentBlue && !completedBlue) || (parent == parentRed && !completedRed) || (parent == parentCyan && !completedCyan) || (parent == parentGreen && !completedGreen) || (parent == parentYellow && !completedYellow)) {
+                if(!startHit) startHit = true; else startHit = false;
+            }
         } 
         
         setGoalToReach();
@@ -75,14 +80,7 @@ public class drawLine : MonoBehaviour {
     // Update is called once per frame
     void Update() {   
 
-        Debug.Log("Complete magenta: " + completedMagenta); 
-        Debug.Log("Complete blue:" + completedBlue); 
-        Debug.Log("Complete cyan:" + completedCyan); 
-        Debug.Log("Complete red:" + completedRed); 
-        Debug.Log("Complete yellow:" + completedYellow); 
-        Debug.Log("Complete green:" + completedGreen); 
         if(completedBlue && completedCyan && completedGreen && completedMagenta && completedRed && completedYellow) animator.SetTrigger("Open");
-        // if(completedMagenta) animator.SetTrigger("Open");
 
         if(Input.GetKeyDown(KeyCode.T)) {
             
@@ -126,7 +124,6 @@ public class drawLine : MonoBehaviour {
 
         if(startHit && isMoving() && Input.GetKey(KeyCode.Mouse1)){
             newPos = playerGame.transform.position;
-            Debug.Log(newPos);
             CreatePositions(newPos, oldPos);     
             SpawnStep();
             oldPos = newPos;
@@ -152,12 +149,36 @@ public class drawLine : MonoBehaviour {
     */
     void setColor(){
         if (color == Color.clear) {
-            if(nameCollider == "YellowStart") color = Color.yellow;
-            else if(nameCollider == "BlueStart") color = Color.blue;
-            else if(nameCollider == "MagentaStart") color = Color.magenta;
-            else if(nameCollider == "RedStart") color = Color.red;
-            else if(nameCollider == "GreenStart") color = Color.green;
-            else if(nameCollider == "CyanStart") color = Color.cyan;
+            if(nameCollider == "YellowStart") {
+                color = Color.yellow;
+                tagName = "stepYellow";
+                parentPlayer.tag = tagName;
+            }
+            else if(nameCollider == "BlueStart") {
+                color = Color.blue;
+                tagName = "stepBlue";
+                parentPlayer.tag = tagName;
+            }
+            else if(nameCollider == "MagentaStart") {
+                color = Color.magenta;
+                tagName = "stepMagenta";
+                parentPlayer.tag = tagName;
+            }
+            else if(nameCollider == "RedStart") {
+                color = Color.red;
+                tagName = "stepRed";
+                parentPlayer.tag = tagName;
+            }
+            else if(nameCollider == "GreenStart") {
+                color = Color.green;
+                tagName = "stepGreen";
+                parentPlayer.tag = tagName;
+            }
+            else if(nameCollider == "CyanStart") {
+                color = Color.cyan;
+                tagName = "stepCyan";
+                parentPlayer.tag = tagName;
+            }
         }
     }
 
@@ -189,7 +210,7 @@ public class drawLine : MonoBehaviour {
         if(positions != null) positions.Clear();
         color = Color.clear;
         parent = null;
-
+        parentPlayer.tag = "Untagged";
         if(nameCollider == "YellowGoal" && !completedYellow) completedYellow = true; 
         else if(nameCollider == "BlueGoal" && !completedBlue) completedBlue = true;
         else if(nameCollider == "MagentaGoal" && !completedMagenta) completedMagenta = true;
@@ -241,6 +262,7 @@ public class drawLine : MonoBehaviour {
         foreach(Vector3 pos in positions) {
             step = Instantiate(stepPrefab, parent) as GameObject;
             step.transform.position = pos;
+            step.tag = tagName;
             // step.transform.rotation = rotation;
             Renderer rend = step.GetComponent<Renderer>();
             rend.material.SetColor("_Color", color);
@@ -253,7 +275,7 @@ public class drawLine : MonoBehaviour {
         Parameters: Transform: the line to destroy
         Return value: nothing
     */
-    void destroyLine(Transform line) {
+    public static void destroyLine(Transform line) {
         for (int i = 0; i < line.transform.childCount; i++){
             Destroy(line.transform.GetChild(i).gameObject);
         }
