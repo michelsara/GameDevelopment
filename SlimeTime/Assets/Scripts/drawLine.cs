@@ -73,6 +73,8 @@ public class drawLine : MonoBehaviour {
         setGoalToReach();
         if(nameCollider == goal) setReachedGoal(collider.transform.position);
         newPos = oldPos = collider.transform.position;
+
+		destroyCurrentHit();
     }
 
     // Update is called once per frame
@@ -257,15 +259,13 @@ public class drawLine : MonoBehaviour {
         Return value: nothing
     */
     void SpawnStep() {
-        foreach(Vector3 pos in positions) {
-            step = Instantiate(stepPrefab, parent) as GameObject;
-            step.transform.position = pos;
-            step.tag = tagName;
-            // step.transform.rotation = rotation;
-            Renderer rend = step.GetComponent<Renderer>();
-            rend.material.SetColor("_Color", color);
-        }
-
+        Vector3 pos = positions[positions.Count - 1];
+		step = Instantiate(stepPrefab, parent) as GameObject;
+		step.transform.position = pos;
+		step.tag = tagName;
+		// step.transform.rotation = rotation;
+		Renderer rend = step.GetComponent<Renderer>();
+		rend.material.SetColor("_Color", color);
     }
 
     /*
@@ -312,5 +312,19 @@ public class drawLine : MonoBehaviour {
         destroyLine(parentRed);
         destroyLine(parentGreen); 
         completedMagenta = completedBlue = completedCyan = completedRed = completedYellow = completedGreen = false;
+    }
+
+	/*
+        Description: destroy the line if something diffirent from the particle itself, goal or start of the current color is hit.
+        Paremeters: nothing
+        Return value: nothing
+    */
+	void destroyCurrentHit() {
+        if (color == Color.cyan && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "CyanStart"))) destroyLine(parentCyan);
+        if (color == Color.blue && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "BlueStart"))) destroyLine(parentBlue);
+        if (color == Color.red && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "RedStart"))) destroyLine(parentRed);
+        if (color == Color.magenta && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "MagentaStart"))) destroyLine(parentMagenta);
+        if (color == Color.green && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "GreenStart"))) destroyLine(parentGreen);
+        if (color == Color.yellow && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "YellowStart"))) destroyLine(parentYellow);
     }
 }
