@@ -313,4 +313,18 @@ public class drawLine : MonoBehaviour {
         destroyLine(parentGreen); 
         completedMagenta = completedBlue = completedCyan = completedRed = completedYellow = completedGreen = false;
     }
+
+    /*
+        Description: destroy the line if something diffirent from the particle itself, goal or start of the current color is hit.
+        Paremeters: nothing
+        Return value: nothing
+    */
+    void destroyCurrentHit() {
+        if (color == Color.cyan && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "CyanStart"))) destroyLine(parentCyan);
+        if (color == Color.blue && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "BlueStart"))) destroyLine(parentBlue);
+        if (color == Color.red && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "RedStart"))) destroyLine(parentRed);
+        if (color == Color.magenta && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "MagentaStart"))) destroyLine(parentMagenta);
+        if (color == Color.green && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "GreenStart"))) destroyLine(parentGreen);
+        if (color == Color.yellow && ((tagCollider == "Goal" && nameCollider != goal) || (tagCollider == "Start" && nameCollider != "YellowStart"))) destroyLine(parentYellow);
+    }
 }
