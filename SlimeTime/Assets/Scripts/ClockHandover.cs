@@ -42,6 +42,9 @@ public class ClockHandover : MonoBehaviour
 			start.SetActive(false);
 			mainCamera.enabled = true;
 			handoverCamera.enabled = false;
+
+			//Change scene
+			this.GetComponent<SceneLoader>().loadScene();
 		}
 
 		if(!animate || time >= 1.0f)

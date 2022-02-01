@@ -10,11 +10,11 @@ public class SceneLoader : MonoBehaviour
 	private AsyncOperation sceneToLoad;
 	[SerializeField] private GameObject canvas;
 
-	void OnTriggerEnter(Collider other) {
+	/*void OnTriggerEnter(Collider other) {
 		loadScene();
-	}
+	}*/
 
-	void loadScene() {
+	public void loadScene() {
 		sceneToLoad = SceneManager.LoadSceneAsync(sceneName);
 		StartCoroutine(Loading());
 	}
