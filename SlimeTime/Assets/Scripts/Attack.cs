@@ -1,35 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YounGenTech.HealthScript;
 
 public class Attack : MonoBehaviour
 {
-    private bool attack = false;
-    public Animator _animator;
-    public Collider collisionAttack;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int damage = 5;
+    private string toHit = "";
+    private Collider collisionAttack;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1")) {
-            _animator.SetBool("attack", true);
-            launchAttack(collisionAttack);
-        }
+    public int Damage { get => damage; set => damage = value; }
+    public string ToHit { get => toHit; set => toHit = value; }
+    public Collider CollisionAttack { get => collisionAttack; set => collisionAttack = value; }
 
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
-            _animator.SetBool("attack", false);
-    }
-
-    private void launchAttack(Collider col)
+    public void launchAttack()
     {
-        Debug.Log("LOG");
-        Collider[] colliders = Physics.OverlapBox(col.bounds.center, col.bounds.extents, col.transform.rotation, LayerMask.GetMask("Hitbox"));
+        Collider[] colliders = Physics.OverlapBox(CollisionAttack.bounds.center, CollisionAttack.bounds.extents, CollisionAttack.transform.rotation, LayerMask.GetMask("Hitbox"));
         foreach (Collider c in colliders)
-            Debug.Log(c.name);
+        {
+            if (c.name.Equals(ToHit))
+            {
+                Health health = c.GetComponentInChildren<Health>();
+                health.Damage(new HealthEvent(gameObject, Damage));
+            }
+        }
     }
 }
