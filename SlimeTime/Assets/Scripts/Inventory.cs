@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour, IInvetory
 	}
 
 	void Start() {
+		Debug.Log(hud.transform.Find("Close Button").GetComponent<Button>());
 		hud.transform.Find("Close Button").GetComponent<Button>().onClick.AddListener(() => closeHUD());
 	}
 
@@ -125,7 +126,7 @@ public class Inventory : MonoBehaviour, IInvetory
 	}
 
 	public void closeHUD() {
-
+		
 		//Deletes every item from the ui
 		Transform board = hud.transform.Find("board");
 		foreach (Transform parchment in board)
