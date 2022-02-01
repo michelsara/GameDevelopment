@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: db53e975e10cc9140905e752659eb1f3
+  - enabled: 1
+    path: Assets/Scenes/EscapeRoom.unity
+    guid: b94ee59f12f411f488e6df197429e012
+  - enabled: 1
+    path: Assets/Scenes/LevelDemo.unity
+    guid: fd3a50ead55426441835c85299865bcb
+  - enabled: 1
+    path: Assets/Scenes/LightLevel.unity
+    guid: 2dfba47f175e3914783601e2c2adf650
+  - enabled: 1
+    path: Assets/Scenes/PlayerLevelDemo.unity
+    guid: 1107d508fb396e1448a346310c9179ae
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
