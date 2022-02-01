@@ -23,7 +23,6 @@ public class Inventory : MonoBehaviour, IInvetory
 	}
 
 	void Start() {
-		Debug.Log(hud.transform.Find("Close Button").GetComponent<Button>());
 		hud.transform.Find("Close Button").GetComponent<Button>().onClick.AddListener(() => closeHUD());
 	}
 
