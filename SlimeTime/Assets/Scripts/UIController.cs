@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class UIController : MonoBehaviour
 	[SerializeField] private Sprite audioEnabled;
 	[SerializeField] private Sprite audioDisabled;
 	AudioSource source;
+
+	[SerializeField] private GameObject progressBar;
+	private AsyncOperation sceneLoad;
 
 	void Awake() {
 		audioManager = audioContext.GetComponent<MenuAudioManager>();
@@ -58,7 +62,18 @@ public class UIController : MonoBehaviour
 		UnityEditor.EditorApplication.isPlaying = false;
 	}
 
-	public void start() {
-		
+	public void startGame() {
+		sceneLoad = SceneManager.LoadSceneAsync("EscapeRoom");
+		StartCoroutine(Loading());
+	}
+
+	private IEnumerator Loading() {
+		progressBar.SetActive(true);
+
+		Image progressBarImage = progressBar.transform.Find("ProgressBar").GetComponent<Image>();
+		while(!sceneLoad.isDone) {
+			progressBarImage.fillAmount = sceneLoad.progress;
+			yield return null;
+		}
 	}
 }
