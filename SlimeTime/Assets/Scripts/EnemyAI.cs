@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Collider weapon;
     [SerializeField] private float triggerDistance = 8.0f;
-    private Health enemyHealth;
+    private Transform healthBar;
     private Attack attack;
     private float distance;
     private int destPoint = 0;
@@ -21,12 +21,12 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        healthBar = transform.Find("LowPolySkeleton").Find("Health Bar Enemy");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = GetComponentInChildren<Health>();
         attack = GetComponent<Attack>();
         attack.CollisionAttack = weapon;
         attack.ToHit = "Player";
@@ -35,6 +35,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthBar.forward = Camera.main.transform.forward;
         //By default is walking
         _animator.SetBool("walk", true);
         distance = Vector3.Distance(transform.position, target.position);
