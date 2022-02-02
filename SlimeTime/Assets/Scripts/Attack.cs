@@ -16,8 +16,9 @@ public class Attack : MonoBehaviour
     public void launchAttack()
     {
         Collider[] colliders = Physics.OverlapBox(CollisionAttack.bounds.center, CollisionAttack.bounds.extents, CollisionAttack.transform.rotation, LayerMask.GetMask("Hitbox"));
+        
         foreach (Collider c in colliders)
-        {
+        {Debug.Log(c);
             if (c.name.Equals(ToHit))
             {
                 Health health = c.GetComponentInChildren<Health>();
