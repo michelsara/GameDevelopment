@@ -39,13 +39,12 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Fire1")) {
+            attack.launchAttack();
             _animator.SetBool("attack", true);
         }
 
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
-            Debug.Log("LOG");
-            attack.launchAttack();
             _animator.SetBool("attack", false);
         }
     }

@@ -36,11 +36,6 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         //By default is walking
-        /*if (distance <= triggerDistance && _animator.GetCurrentAnimatorStateInfo(0).IsName("Weapon_Inspection"))
-        {
-            Debug.Log("LOG");
-            _animator.CrossFade("walk 0", 0.3f);
-        }*/
         _animator.SetBool("walk", true);
         distance = Vector3.Distance(transform.position, target.position);
         if (distance <= triggerDistance)
