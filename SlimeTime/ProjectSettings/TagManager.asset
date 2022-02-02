@@ -7,11 +7,20 @@ TagManager:
   - CrystalMirror
   - EndPoint
   - Interactable
+  - Goal
+  - Start
+  - LineParent
+  - stepMagenta
+  - stepRed
+  - stepCyan
+  - stepBlue
+  - stepGreen
+  - stepYellow
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Structure
@@ -19,6 +28,7 @@ TagManager:
   - Prop
   - Furniture
   - Props
+  - Line
   - Hitbox
   - 
   - 

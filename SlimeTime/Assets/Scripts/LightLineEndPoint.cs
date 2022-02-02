@@ -8,7 +8,7 @@ public class LightLineEndPoint : MonoBehaviour
 	private bool powered = false;
 	private bool prevPowered = false;
 
-	[SerializeField] private Transform door;
+	[SerializeField] private Transform door = null;
 	[SerializeField] private Vector3 doorOpenPosition;
 	[SerializeField] private Vector3 doorClosePosition;
 	
@@ -36,13 +36,15 @@ public class LightLineEndPoint : MonoBehaviour
 		}
 
 		// open/close door animation
-		if(elapsedTime < openCloseTimeInSeconds) {
-			elapsedTime += Time.deltaTime;
-			Vector3 newPosition = Vector3.Lerp(doorOpenPosition, doorClosePosition, lerpTime);
-			door.localPosition = newPosition;
-		}
-		if(elapsedTime >= openCloseTimeInSeconds && powered != prevPowered) {
-			elapsedTime = 0f;
+		if(door != null) {
+			if(elapsedTime < openCloseTimeInSeconds) {
+				elapsedTime += Time.deltaTime;
+				Vector3 newPosition = Vector3.Lerp(doorOpenPosition, doorClosePosition, lerpTime);
+				door.localPosition = newPosition;
+			}
+			if(elapsedTime >= openCloseTimeInSeconds && powered != prevPowered) {
+				elapsedTime = 0f;
+			}
 		}
 		
 		//illumination

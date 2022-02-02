@@ -125,7 +125,7 @@ public class Inventory : MonoBehaviour, IInvetory
 	}
 
 	public void closeHUD() {
-
+		
 		//Deletes every item from the ui
 		Transform board = hud.transform.Find("board");
 		foreach (Transform parchment in board)

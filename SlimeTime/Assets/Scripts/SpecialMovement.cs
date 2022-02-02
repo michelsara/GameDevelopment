@@ -53,16 +53,15 @@ public class SpecialMovement : MonoBehaviour
     {
         cameraSwitch();
 
-        //Check if can jump
+         //Check if can jump
         _animator.speed = speed / 2;
-        if (Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundStructure);
-        else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundFurniture))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundFurniture);
-        else if (Physics.CheckSphere(groundCheck.position, groundDistance, groundProps))
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundProps);
-        else
-            isGrounded = false;
+		RaycastHit raycastHit = new RaycastHit();
+		isGrounded = Physics.Raycast(
+			groundCheck.position,
+			new Vector3(0.0f, -1.0f, 0.0f),
+			out raycastHit,
+			groundDistance
+		);
 
         if (isGrounded && velocity.y < 0)
             velocity.y = -2.0f;
@@ -80,6 +79,7 @@ public class SpecialMovement : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             _animator.SetBool("movement", true);
+            _animator.speed = speed / 2;
             //3rd camera movement
             if (_3rdCamOn)
             {
@@ -91,7 +91,7 @@ public class SpecialMovement : MonoBehaviour
                     move.x = 0;
 
                 float rotationAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, Mathf.Round(targetAngle / 90) * 90, ref turnSmoothVelocity, turnSmoothTime);
-                transform.rotation = Quaternion.Euler(0.0f, rotationAngle, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, targetAngle, 0.0f);
                 controller.Move(move * speed * Time.deltaTime);//moveDir.normalized
             }
             //1st camera movement
@@ -118,7 +118,7 @@ public class SpecialMovement : MonoBehaviour
         }
 
         //Jump and gravity
-        if (Input.GetButtonDown("Jump") && isGrounded)
+		if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
@@ -141,19 +141,18 @@ public class SpecialMovement : MonoBehaviour
             speed = defaultSpeed;
             sprint = false;
         }
-        _animator.speed = speed / 2;
     }
 
     //Switch camera
     void cameraSwitch()
     {
-        if (Input.GetKey("f") && _3rdCamOn)
+        if (Input.GetKeyUp("f") && _3rdCamOn)
         {
             _3rdCamOn = false;
             _3rdCam.gameObject.SetActive(false);
             _1stCam.gameObject.SetActive(true);
         }
-        else if (Input.GetKey("f") && !_3rdCamOn)
+        else if (Input.GetKeyUp("f") && !_3rdCamOn)
         {
             _3rdCamOn = true;
             _1stCam.gameObject.SetActive(false);
