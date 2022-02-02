@@ -10,7 +10,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Collider weapon;
     [SerializeField] private float triggerDistance = 8.0f;
-    private Transform healthBar;
+    [SerializeField] private Transform healthBar;
+    //Audio
+    [SerializeField] private AudioSource shotAudio;
     private Attack attack;
     private float distance;
     private int destPoint = 0;
@@ -21,7 +23,7 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        healthBar = transform.Find("LowPolySkeleton").Find("Health Bar Enemy");
+        //healthBar = transform.Find("LowPolySkeleton").Find("Health Bar Enemy");
     }
 
     // Start is called before the first frame update
@@ -38,6 +40,10 @@ public class EnemyAI : MonoBehaviour
         healthBar.forward = Camera.main.transform.forward;
         //By default is walking
         _animator.SetBool("walk", true);
+        if (!shotAudio.isPlaying)
+        {
+            shotAudio.PlayOneShot(shotAudio.clip);
+        }
         distance = Vector3.Distance(transform.position, target.position);
         if (distance <= triggerDistance)
         {

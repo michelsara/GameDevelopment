@@ -36,6 +36,8 @@ public class Movement : MonoBehaviour
     private bool sprint = false;
     public float animationSpeed = 1;
     private int timeStill = 0;
+    //Audio
+    [SerializeField] private AudioSource shotAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +77,9 @@ public class Movement : MonoBehaviour
         sprintCheck();
         if (direction.magnitude >= 0.1f)
         {
+            if (!shotAudio.isPlaying) {
+                shotAudio.PlayOneShot(shotAudio.clip);
+            }
             _animator.SetBool("movement", true);
             _animator.speed = speed / 2;
             //3rd camera movement
