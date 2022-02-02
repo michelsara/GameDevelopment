@@ -43,6 +43,7 @@ public class Shot : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+		Debug.Log("LOG");
         Attack.launchAttack();
         StartCoroutine(DestroyRoutine(0.3f));
     }
