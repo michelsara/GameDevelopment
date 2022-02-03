@@ -9,9 +9,16 @@ public class CutscenesController : MonoBehaviour
 	[SerializeField] private SceneLoader sceneLoader;
     private int index = 0;
 
+	void Start() {
+		//Open cutscene at scene startup only when at the end needs to be loaded another scene
+		if(sceneLoader != null) {
+			open();
+		}
+	}
+
 	void Update() {
 
-		if(Input.GetKeyUp(KeyCode.Space))
+		if(Input.GetKeyUp(KeyCode.Space) && canvas.gameObject.activeSelf)
 			next();
 	}
 

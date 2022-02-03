@@ -63,7 +63,7 @@ public class UIController : MonoBehaviour
 	}
 
 	public void startGame() {
-		sceneLoad = SceneManager.LoadSceneAsync("EscapeRoom");
+		sceneLoad = SceneManager.LoadSceneAsync("IntroCutscene");
 		StartCoroutine(Loading());
 	}
 

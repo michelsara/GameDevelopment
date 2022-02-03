@@ -9,10 +9,12 @@ public class SceneLoader : MonoBehaviour
 	[SerializeField] private string sceneName;
 	private AsyncOperation sceneToLoad;
 	[SerializeField] private GameObject canvas;
+	[SerializeField] private bool onTriggerEnter = false;
 
-	/*void OnTriggerEnter(Collider other) {
-		loadScene();
-	}*/
+	void OnTriggerEnter(Collider other) {
+		if(onTriggerEnter)
+			loadScene();
+	}
 
 	public void loadScene() {
 		sceneToLoad = SceneManager.LoadSceneAsync(sceneName);
