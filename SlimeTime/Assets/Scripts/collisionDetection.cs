@@ -12,11 +12,8 @@ public class collisionDetection : MonoBehaviour {
     }
 
     void OnParticleCollision(GameObject other) {  
-        if (other.name != "Player" && other.tag != part.gameObject.tag && part.gameObject.layer == 10 && other.layer == 3 && !(other.tag == "Untagged") && !(part.gameObject.tag == "Untagged")){
-            Debug.Log ("HIT DIFFERENT");
-            Debug.Log(other.tag);
+        if (other.tag != part.gameObject.tag && part.gameObject.layer == LayerMask.NameToLayer("Line") && other.layer == LayerMask.NameToLayer("Player") && !(other.tag == "Untagged") && !(part.gameObject.tag == "Untagged")){
             findParent(other.tag);
-            
         }
     }
 
