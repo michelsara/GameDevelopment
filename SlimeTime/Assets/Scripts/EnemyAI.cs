@@ -14,7 +14,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private bool tutorial = false;
     //Audio
     [SerializeField] private AudioSource shotAudio;
-    private Attack attack;
+	[SerializeField] private AudioSource BackgrounAudio;
+	private Attack attack;
     private float distance;
     private int destPoint = 0;
     private NavMeshAgent agent;
@@ -52,6 +53,13 @@ public class EnemyAI : MonoBehaviour
 			distance = Vector3.Distance(transform.position, target.position);
 			if (distance <= triggerDistance)
 			{
+				//Play battle song if enemy spot player
+				if (BackgrounAudio.clip != Resources.Load("Music/Battle background") as AudioClip || !BackgrounAudio.isPlaying)
+				{
+					BackgrounAudio.clip = Resources.Load("Music/Battle background") as AudioClip;
+					BackgrounAudio.volume = 0.01f;
+					BackgrounAudio.Play();
+				}
 				//If chasing the enemy don't inspect weapon
 				_animator.SetBool("chasing", true);
 				//If enough distant chase the player
@@ -81,6 +89,13 @@ public class EnemyAI : MonoBehaviour
 			}
 			else
 			{
+				//play background music if not playing
+				if (BackgrounAudio.clip != Resources.Load("Music/AMBIENCE DUNGEON") as AudioClip || !BackgrounAudio.isPlaying)
+				{
+					BackgrounAudio.clip = Resources.Load("Music/AMBIENCE DUNGEON") as AudioClip;
+					BackgrounAudio.volume = 0.15f;
+					BackgrounAudio.Play();
+				}
 				//If can't hear the player patrol
 				_animator.SetBool("Attack", false);
 				_animator.SetBool("chasing", false);

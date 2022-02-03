@@ -6,15 +6,15 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     //bullet 
-    public GameObject bullet;
+    [SerializeField] private GameObject bullet;
 
     //bullet force
-    public float shootForce;
+    [SerializeField] private float shootForce;
 
     //Gun stats
-    public float timeBetweenShooting, reloadTime;
-    public int magazineSize;
-    public bool allowButtonHold;
+    [SerializeField] private float timeBetweenShooting, reloadTime;
+    [SerializeField] private int magazineSize;
+    [SerializeField] private bool allowButtonHold;
 
     int bulletsLeft, bulletsShot;
 
@@ -22,13 +22,13 @@ public class Shooting : MonoBehaviour
     bool shooting, readyToShoot, reloading;
 
     //Reference
-    public Transform attackPoint;
+    [SerializeField] private Transform attackPoint;
 
     //Graphics
-    public TextMeshProUGUI ammunitionDisplay;
+    [SerializeField] private TextMeshProUGUI ammunitionDisplay;
 
     //bug fixing :D
-    public bool allowInvoke = true;
+    [SerializeField] private bool allowInvoke = true;
 
     private uint _shotCounter = 0;
 
@@ -75,8 +75,8 @@ public class Shooting : MonoBehaviour
         readyToShoot = false;
         Shot shotInstance = Instantiate(bullet, attackPoint.position, Quaternion.identity).GetComponent<Shot>();
         // assign your values to the Shot component
-        shotInstance.speed = shootForce;
-        shotInstance.direction = Camera.main.transform.forward;
+        shotInstance.Speed = shootForce;
+        shotInstance.Direction = Camera.main.transform.forward;
         shotInstance.gameObject.name = $"SHOT_{_shotCounter:D3}";
         _shotCounter++;
 

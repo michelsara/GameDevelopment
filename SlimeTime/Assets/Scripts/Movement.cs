@@ -6,24 +6,24 @@ using Cinemachine;
 public class Movement : MonoBehaviour
 {
     //Cameras
-    public GameObject _1stPersonCam;
-    public GameObject _3rdPersonCam;
+    [SerializeField] private GameObject _1stPersonCam;
+    [SerializeField] private GameObject _3rdPersonCam;
     private CinemachineVirtualCamera _1stCam;
     private CinemachineFreeLook _3rdCam;
     bool _3rdCamOn = true;
 
-    public UnityEngine.CharacterController controller;
-    public Transform cam;
-    public Animator _animator;
+    [SerializeField] private UnityEngine.CharacterController controller;
+    [SerializeField] private Transform cam;
+    [SerializeField] private Animator _animator;
     private Vector3 velocity;
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
 
     int oldHorizontal = 0;
     int oldVertical = 0;
     //Speed
-    public float defaultSpeed = 5.0f;
-    public float sprintSpeed = 10.0f;
+    [SerializeField] private float defaultSpeed = 5.0f;
+    [SerializeField] private float sprintSpeed = 10.0f;
     private float speed;
     //Turn
     private float turnSmoothTime = 0.1f;
@@ -31,10 +31,9 @@ public class Movement : MonoBehaviour
     //Gravity
     private float gravity = -9.81f;
     private bool isGrounded;
-    public float jumpHeight = 10.0f;
+    [SerializeField] private float jumpHeight = 10.0f;
     //Sprint
     private bool sprint = false;
-    public float animationSpeed = 1;
     private int timeStill = 0;
     //Audio
     [SerializeField] private AudioSource shotAudio;

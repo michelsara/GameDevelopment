@@ -5,7 +5,6 @@ using UnityEngine;
 public class CombatDoorOpen : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject doors;
 
     void Start()
     {

@@ -10,10 +10,6 @@ public class MenuAudioManager : MonoBehaviour
 	void Awake() {
 		source = this.GetComponent<AudioSource>();
 	}
-
-	/*void Start() {
-		PlayIntroMusic();	
-	}*/
 	
 	public void PlayIntroMusic() {
 		PlayMusic(Resources.Load("Music/" + introBGMusic) as AudioClip);

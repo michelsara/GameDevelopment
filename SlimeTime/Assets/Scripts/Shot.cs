@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Shot : MonoBehaviour
 {
-    public float speed = 1.0f;
-    public Vector3 direction;
-    public float lifeTime = 5.0f;
+    [SerializeField] private float speed = 1.0f;
+    [SerializeField] private Vector3 direction;
+    [SerializeField] private float lifeTime = 5.0f;
     private Attack attack;
-    public int damage = 1;
+    [SerializeField] private int damage = 1;
 
     private Rigidbody _rigidbody;
 
     public Attack Attack { get => attack; set => attack = value; }
+    public float Speed { get => speed; set => speed = value; }
+    public Vector3 Direction { get => direction; set => direction = value; }
 
     void Awake()
     {
@@ -23,7 +25,7 @@ public class Shot : MonoBehaviour
     void Start()
     {
         // start with explosive velocity, also called impulse
-        _rigidbody.AddForce(direction * speed, ForceMode.VelocityChange);
+        _rigidbody.AddForce(Direction * Speed, ForceMode.VelocityChange);
         attack = GetComponent<Attack>();
         attack.CollisionAttack = gameObject.GetComponent<Collider>();
         attack.ToHit = "Enemy";
@@ -37,14 +39,15 @@ public class Shot : MonoBehaviour
         if (lifeTime <= 0f)
         {
             // Destroy whole gameobject, if "this" is being used instead of gameObject -> then only this script (MonoBehaviour) will be destroyed
-            StartCoroutine(DestroyRoutine(0.3f));
+            StartCoroutine(DestroyRoutine(0.1f));
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        //OnCollision attack
         Attack.launchAttack();
-        StartCoroutine(DestroyRoutine(0.3f));
+        StartCoroutine(DestroyRoutine(0.1f));
     }
 
     private IEnumerator DestroyRoutine(float time)

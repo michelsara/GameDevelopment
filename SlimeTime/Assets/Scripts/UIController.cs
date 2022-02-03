@@ -59,12 +59,10 @@ public class UIController : MonoBehaviour
 		Application.Quit();
 
 		//Unity editor exit
-		// Runtime code here
+		// Code not running in the build
 		#if UNITY_EDITOR
 				UnityEditor.EditorApplication.isPlaying = false;
 		#endif
-		// Runtime code here
-		//UnityEditor.EditorApplication.isPlaying = false;
 	}
 
 	public void startGame() {

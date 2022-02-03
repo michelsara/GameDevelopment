@@ -42,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
             attack.launchAttack();
             _animator.SetBool("attack", true);
         }
-
+        //If the animation is running, change to stop it 
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
             _animator.SetBool("attack", false);
