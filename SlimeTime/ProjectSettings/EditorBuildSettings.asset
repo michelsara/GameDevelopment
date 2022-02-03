@@ -9,27 +9,30 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: db53e975e10cc9140905e752659eb1f3
   - enabled: 1
-    path: Assets/Scenes/EscapeRoom.unity
-    guid: b94ee59f12f411f488e6df197429e012
-  - enabled: 1
-    path: Assets/Scenes/LevelLine.unity
-    guid: fd3a50ead55426441835c85299865bcb
-  - enabled: 1
-    path: Assets/Scenes/LightLevel.unity
-    guid: 2dfba47f175e3914783601e2c2adf650
-  - enabled: 1
-    path: Assets/Scenes/PlayerLevelDemo.unity
-    guid: 1107d508fb396e1448a346310c9179ae
-  - enabled: 1
     path: Assets/Scenes/IntroCutscene.unity
     guid: 00e33bff6166ea64ca2935d1951ad11b
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 3d45369702ce8434d9a8221f147e7c0e
   - enabled: 1
-    path: Assets/Scenes/SecondCombat.unity
-    guid: 9dd651de5a716ab48b5bb7e0e0aed4d6
+    path: Assets/Scenes/LightLevel.unity
+    guid: 2dfba47f175e3914783601e2c2adf650
   - enabled: 1
     path: Assets/Scenes/FirstCombat.unity
     guid: 9a0612e3a67d5a341a21ea0d5d0b8c96
+  - enabled: 1
+    path: Assets/Scenes/LevelLine.unity
+    guid: fd3a50ead55426441835c85299865bcb
+  - enabled: 1
+    path: Assets/Scenes/SecondCombat.unity
+    guid: 9dd651de5a716ab48b5bb7e0e0aed4d6
+  - enabled: 1
+    path: Assets/Scenes/EscapeRoom.unity
+    guid: b94ee59f12f411f488e6df197429e012
+  - enabled: 1
+    path: Assets/Scenes/EndCutscene.unity
+    guid: e6553e53f82e5434d91ad6bf3da3979f
+  - enabled: 1
+    path: Assets/Scenes/TheEndScreen.unity
+    guid: e49f2ffc59d9ef545873bd858c547d38
   m_configObjects: {}

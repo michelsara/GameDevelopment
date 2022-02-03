@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2254,7 +2254,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168215521}
-  m_LocalRotation: {x: 0.023345659, y: -0.000000017235251, z: 4.0247808e-10, w: 0.9997275}
+  m_LocalRotation: {x: 0.07544144, y: 0.037418876, z: -0.0028330092, w: 0.99644387}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4007,8 +4007,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299100946}
-  m_LocalRotation: {x: 0.019718006, y: -0.000000007837356, z: 4.8939497e-10, w: 0.9998056}
-  m_LocalPosition: {x: -0.31, y: 1.248381, z: -22.155651}
+  m_LocalRotation: {x: 0.07182537, y: 0.037428908, z: -0.0026972166, w: 0.9967111}
+  m_LocalPosition: {x: -0.43207452, y: 1.5488412, z: -23.678097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7900,7 +7900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9127586027425920879, guid: 2f2ff5c103656c94ca51d5bbd62d1ca9, type: 3}
       propertyPath: m_CookingOptions
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9127586027668007992, guid: 2f2ff5c103656c94ca51d5bbd62d1ca9, type: 3}
       propertyPath: m_Name
@@ -11317,7 +11317,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799991400}
-  m_LocalRotation: {x: 0.041526336, y: -0.000000017475571, z: 7.26323e-10, w: 0.99913746}
+  m_LocalRotation: {x: 0.09355377, y: 0.037361145, z: -0.0035131695, w: 0.9949068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -20879,7 +20879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9127586027425920879, guid: 2f2ff5c103656c94ca51d5bbd62d1ca9, type: 3}
       propertyPath: m_CookingOptions
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9127586027668007992, guid: 2f2ff5c103656c94ca51d5bbd62d1ca9, type: 3}
       propertyPath: m_Name
@@ -24411,7 +24411,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778905878}
-  m_LocalRotation: {x: 0.0052053044, y: -2.78814e-16, z: 1.2674901e-18, w: 0.99998647}
+  m_LocalRotation: {x: 0.057352085, y: 0.0374641, z: -0.0021537086, w: 0.99764854}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
