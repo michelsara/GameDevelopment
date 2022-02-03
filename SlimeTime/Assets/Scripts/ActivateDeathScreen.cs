@@ -8,8 +8,14 @@ public class ActivateDeathScreen : MonoBehaviour
 
     public void open()
     {
-        HUD.SetActive(true);
+        StartCoroutine(Execute());
+    }
 
+    private IEnumerator Execute()
+    {
+        yield return new WaitForSeconds(2);
+
+        HUD.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
