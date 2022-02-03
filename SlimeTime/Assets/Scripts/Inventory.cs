@@ -24,6 +24,7 @@ public class Inventory : MonoBehaviour, IInvetory
 
 	void Start() {
 		hud.transform.Find("Close Button").GetComponent<Button>().onClick.AddListener(() => closeHUD());
+		add("Clock", 1);
 	}
 
     public void add(string name, int quantity) {
