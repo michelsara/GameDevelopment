@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/EscapeRoom.unity
     guid: b94ee59f12f411f488e6df197429e012
   - enabled: 1
-    path: Assets/Scenes/LevelDemo.unity
+    path: Assets/Scenes/LevelLine.unity
     guid: fd3a50ead55426441835c85299865bcb
   - enabled: 1
     path: Assets/Scenes/LightLevel.unity
@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayerLevelDemo.unity
     guid: 1107d508fb396e1448a346310c9179ae
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/IntroCutscene.unity
+    guid: 00e33bff6166ea64ca2935d1951ad11b
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 3d45369702ce8434d9a8221f147e7c0e
   m_configObjects: {}
